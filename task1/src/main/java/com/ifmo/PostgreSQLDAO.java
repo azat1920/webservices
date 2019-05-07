@@ -10,6 +10,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PostgreSQLDAO {
+
+    private Connection connection;
+
+    public PostgreSQLDAO(){
+
+    }
+
+    public PostgreSQLDAO(Connection connection) {
+        this.connection = connection;
+    }
+
     public List<Person> getPersons() {
         List<Person> persons = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()){
