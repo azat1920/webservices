@@ -18,13 +18,13 @@ public class PostgreSQLDAO {
         try (Connection connection = ConnectionUtil.getConnection()){
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("select * from persons");
-            System.out.println(rs.toString());
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 int age = rs.getInt("age");
 
-                Person person = new Person(name, surname, age);
+                Person person = new Person(id, name, surname, age);
                 persons.add(person);
             }
         } catch (SQLException ex) {
@@ -33,4 +33,39 @@ public class PostgreSQLDAO {
 
         return persons;
     }
+
+
+    public int createPerson(int id, String name, String surname, int age){
+        try (Connection connection = ConnectionUtil.getConnection()){
+            Statement stmt = connection.createStatement();
+            stmt.execute(ConnectionUtil.createPerson(id, name, surname, age));
+        } catch (SQLException ex) {
+            Logger.getLogger(PostgreSQLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+
+    public boolean updatePerson(int id, String name, String surname, String age) {
+        try (Connection connection = ConnectionUtil.getConnection()){
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(ConnectionUtil.updatePerson(id, name, surname, age));
+        } catch (SQLException ex) {
+            Logger.getLogger(PostgreSQLDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deletePerson(int id) {
+        try (Connection connection = ConnectionUtil.getConnection()){
+            Statement stmt = connection.createStatement();
+            stmt.execute(ConnectionUtil.deletePerson(id));
+        } catch (SQLException ex) {
+            Logger.getLogger(PostgreSQLDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
+
 }

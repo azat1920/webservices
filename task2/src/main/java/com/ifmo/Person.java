@@ -1,6 +1,7 @@
 package com.ifmo;
 
 public class Person {
+    private int id;
     private String name;
     private String surname;
     private int age;
@@ -12,6 +13,21 @@ public class Person {
         this.name = name;
         this.surname = surname;
         this.age = age;
+    }
+
+    public Person(int id, String name, String surname, int age) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,6 +56,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", surname=" + surname + ", age=" + age + '}';
+        return "Person{" + "id" + id + "name=" + name + ", surname=" + surname + ", age=" + age + '}';
     }
 }
