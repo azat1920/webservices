@@ -1,5 +1,7 @@
 package com.ifmo;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +14,14 @@ import java.util.logging.Logger;
 public class PostgreSQLDAO {
 
     private Connection connection;
+
+    public PostgreSQLDAO(){
+
+    }
+
+    public PostgreSQLDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     public List<Person> getPersons(String id, String name, String surname, String age) {
         List<Person> persons = new ArrayList<>();
